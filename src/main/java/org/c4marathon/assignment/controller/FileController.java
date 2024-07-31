@@ -17,6 +17,7 @@ import java.io.IOException;
 public class FileController {
     private final FileUploadService fileUploadService;
     private final FileDeleteService fileDeleteService;
+
     @PostMapping("/file")
     public ResponseEntity<Object> uploadFile(@ModelAttribute("file") MultipartFile file,
                                              @RequestHeader("user_key") String userKey) throws IOException {
@@ -24,4 +25,11 @@ public class FileController {
         return ResponseEntity.ok().body(file.getOriginalFilename() + " upload success");
     }
 
+    @DeleteMapping("/file")
+    public ResponseEntity<Object> deleteFile(@RequestParam("file-id") Long fileId,
+                                             @RequestHeader("user_key") String userKey) throws IOException {
+        fileDeleteService.deleteFileHandler(userKey, fileId);
+        return ResponseEntity.ok().body("delete success");
+    }
 }
+
