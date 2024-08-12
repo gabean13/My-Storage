@@ -26,7 +26,6 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 public class FileUploadService {
-
     private final UserRepository userRepository;
     private final FileRepository fileRepository;
     private final MetadataRepository metadataRepository;
@@ -35,7 +34,7 @@ public class FileUploadService {
     public ResponseDto uploadFileListHandler (MultipartFile[] fileList, String userKey) throws IOException {
         User user = userRepository.findUserByKey(userKey).orElseThrow(() -> new UserNotFoundException());
 
-        for(MultipartFile file : fileList){
+        for(MultipartFile file : fileList) {
            uploadFileHandler(file, user);
         }
 
@@ -44,7 +43,7 @@ public class FileUploadService {
 
     @Transactional
     protected String uploadFileHandler(MultipartFile file, User user) throws IOException{
-        if(!contentTypeToExtensionMapper.isContainsContentType(file.getContentType())){
+        if(!contentTypeToExtensionMapper.isContainsContentType(file.getContentType())) {
             throw new FileExtensionInvalidException();
         }
 
@@ -66,7 +65,7 @@ public class FileUploadService {
         Path uploadPath = Path.of(userPath);
         Path filePath = uploadPath.resolve(uniqueFileName);
 
-        if(!Files.exists(uploadPath)){
+        if(!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
 

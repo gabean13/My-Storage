@@ -23,6 +23,7 @@ public class FileDeleteService {
     private final UserRepository userRepository;
     private final FileRepository fileRepository;
     private final MetadataRepository metadataRepository;
+
     @Transactional
     public ResponseDto deleteFileHandler(String userKey, Long fileId) throws IOException {
         Long userId = userRepository.findUserByKey(userKey).orElseThrow(() -> new UserNotFoundException()).getId();
@@ -32,13 +33,13 @@ public class FileDeleteService {
         String fileUUID = file.getUuid();
         String name = file.getName();
 
-        //메타 데이터 튜플 삭제
+        // 메타 데이터 튜플 삭제
         metadataRepository.delete(
                 metadataRepository.findById(fileId).orElseThrow(() -> new FileEmptyException())
         );
-        //파일 튜플 삭제
+        // 파일 튜플 삭제
         fileRepository.delete(file);
-        //실제 파일 삭제
+        // 실제 파일 삭제
         deleteRealFile(path, fileUUID);
 
         return new ResponseDto(name + " 파일 삭제에 성공하였습니다");
@@ -47,9 +48,9 @@ public class FileDeleteService {
     protected void deleteRealFile(String filePath, String fileUUID) throws IOException {
         Path deleteFilePath = Path.of(filePath, fileUUID);
 
-        if(Files.exists(deleteFilePath)){
+        if(Files.exists(deleteFilePath)) {
             Files.delete(deleteFilePath);
-        }else{
+        } else {
             throw new FileEmptyException();
         }
     }

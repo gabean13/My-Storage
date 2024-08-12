@@ -26,6 +26,7 @@ public class FileDownloadService {
     private final FileRepository fileRepository;
     private final MetadataRepository metadataRepository;
     private final UserRepository userRepository;
+
     public FileDownloadResponseDto fileDownloadHandler(String userKey, Long fileId) throws MalformedURLException, UnsupportedEncodingException {
         User user = userRepository.findUserByKey(userKey).orElseThrow(
                 () -> new UserNotFoundException()
@@ -39,9 +40,9 @@ public class FileDownloadService {
 
         Path filePath = Path.of(file.getPath()).resolve(file.getUuid()).normalize();
         Resource resource = new UrlResource(filePath.toUri());
-        if(resource.exists()|| resource.isReadable()){
+        if(resource.exists()|| resource.isReadable()) {
             return new FileDownloadResponseDto(resource, file.getName(), getContentType(fileId), contentDisposition);
-        }else{
+        } else {
             throw new FileEmptyException();
         }
     }

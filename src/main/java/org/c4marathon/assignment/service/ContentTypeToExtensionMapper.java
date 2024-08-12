@@ -14,6 +14,14 @@ public class ContentTypeToExtensionMapper {
         initializeMap();
     }
 
+    public String getExtension(String contentType) {
+        return contentTypeToExtensionMap.get(contentType);
+    }
+
+    public boolean isContainsContentType(String contentType){
+        return contentTypeToExtensionMap.containsKey(contentType);
+    }
+
     private void initializeMap() {
         contentTypeToExtensionMap.put("image/avif", ".avif");
         contentTypeToExtensionMap.put("image/png", ".png");
@@ -51,12 +59,5 @@ public class ContentTypeToExtensionMapper {
         contentTypeToExtensionMap.put("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", ".xlsx");
         contentTypeToExtensionMap.put("application/xml", ".xml");
         contentTypeToExtensionMap.put("application/zip", ".zip");
-    }
-
-    public String getExtension(String contentType) {
-        return contentTypeToExtensionMap.get(contentType);
-    }
-    public boolean isContainsContentType(String contentType){
-        return contentTypeToExtensionMap.containsKey(contentType);
     }
 }

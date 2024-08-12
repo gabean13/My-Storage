@@ -11,5 +11,4 @@ public class FileDownloadResponseDto {
     private String fileName;
     private String contentType;
     private String contentDisposition;
-
 }

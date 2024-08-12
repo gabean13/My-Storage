@@ -17,5 +17,4 @@ public class UserLevel {
     private String name;
     private long capacity;
     private Integer price;
-
 }

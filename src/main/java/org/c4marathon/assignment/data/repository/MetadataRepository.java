@@ -8,7 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface MetadataRepository extends JpaRepository<Metadata, Long> {
-
     @Override
     Optional<Metadata> findById(Long id);
 }

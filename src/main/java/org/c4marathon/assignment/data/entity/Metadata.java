@@ -17,14 +17,13 @@ public class Metadata {
     private Long fileId;
     @Column(name = "file_extension")
     private String fileExtension;
-
     @Column(name = "file_size")
     private Long fileSize;
     @Column(name = "file_upload_date")
     private LocalDateTime fileUploadDate;  //date , time 저장
-
     @Column(name = "file_download_date")
     private LocalDateTime fileDownloadDate;
+
     @Builder
     public Metadata(Long fileId, String fileExtension, Long fileSize, LocalDateTime fileUploadDate) {
         this.fileId = fileId;
